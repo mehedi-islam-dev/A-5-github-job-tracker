@@ -16,7 +16,65 @@
 </style>
 </head>
 <body class="bg-[#FFFFFF] text-gray-800">
+     <script>
+    if (localStorage.getItem('isAuthenticated') !== 'true') {
+        window.location.href = 'index.html';
+    }
+</script>
+
+<nav class="bg-white border-b border-gray-200 px-4 py-3 flex flex-wrap justify-between items-center shadow-sm">
+    <div class="flex items-center gap-2 mb-3 sm:mb-0">
+        <i class="fa-brands fa-github text-2xl"></i>
+        <span class="text-xl font-bold text-gray-900">GitHub Issues Tracker</span>
+    </div>
+    <div class="flex items-center gap-3 w-full sm:w-auto">
+        <div class="relative w-full sm:w-64">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+                <i class="fa-solid fa-magnifying-glass text-sm"></i>
+            </span>
+            <input type="text" id="search-input" class="w-full border border-gray-300 rounded-md py-1.5 pl-9 pr-3 text-sm focus:outline-none focus:border-[#4f23ff] focus:ring-1 focus:ring-[#4f23ff]" placeholder="Search issues...">
+        </div>
+        <button class="bg-[#4f23ff] hover:bg-[#3d19d6] text-white px-4 py-1.5 rounded-md text-sm font-medium whitespace-nowrap transition-colors">
+            + New Issue
+        </button>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-4 py-8">
     
+    <div class="bg-white rounded-md p-1 inline-flex gap-1 shadow-sm border border-gray-200 mb-8">
+        <button id="tab-all" class="tab-btn px-6 py-1.5 rounded text-sm font-medium bg-[#4f23ff] text-white transition-colors">All</button>
+        <button id="tab-open" class="tab-btn px-6 py-1.5 rounded text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">Open</button>
+        <button id="tab-closed" class="tab-btn px-6 py-1.5 rounded text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">Closed</button>
+    </div>
+
+    <div class="flex flex-wrap justify-between items-end mb-6">
+        <div class="flex items-center gap-4">
+            <div class="bg-purple-100 text-[#4f23ff] p-3 rounded-full flex items-center justify-center h-12 w-12">
+                <i class="fa-solid fa-circle-dot text-xl"></i>
+            </div>
+            <div>
+                <h2 class="text-xl font-bold text-gray-900"><span id="issue-count">0</span> Issues</h2>
+                <p class="text-sm text-gray-500">Track and manage your project issues</p>
+            </div>
+        </div>
+        <div class="flex gap-4 text-sm font-medium text-gray-700 mt-4 sm:mt-0">
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-green-500"></span> Open</span>
+            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> Closed</span>
+        </div>
+    </div>
+
+    <div id="loading-spinner" class="hidden flex justify-center items-center py-20">
+        <i class="fa-solid fa-spinner fa-spin text-4xl text-[#4f23ff]"></i>
+    </div>
+
+    <div id="issues-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        </div>
+    
+    <div id="issue-modal" class="hidden fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center p-4">
+        </div>
+
+</main>
     <script src="app.js"></script>
 </body>
 </html>
