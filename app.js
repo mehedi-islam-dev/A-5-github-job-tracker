@@ -34,18 +34,32 @@ function renderIssues(issuesToRender) {
 
     issuesToRender.forEach(issue => {
         const isOpen = issue.status?.toLowerCase() === 'open';
-        const topBorderClass = isOpen ? 'border-green-500' : 'border-[#4f23ff]';
-        const iconColorClass = isOpen ? 'text-green-500' : 'text-[#4f23ff]';
         
+        const topBorderClass = isOpen ? 'border-green-500' : 'border-purple-500'; 
+        
+        const iconUrl = isOpen ? './images/Open-Status.png' : './images/Closed- Status .png';
+        
+        const priority = (issue.priority || 'Medium').toUpperCase();
+        let priorityClass = '';
+        
+        if (priority === 'HIGH') {
+            priorityClass = 'bg-red-50 text-red-500'; 
+        } else if (priority === 'MEDIUM') {
+            priorityClass = 'bg-orange-50 text-orange-500'; 
+        } else {
+            priorityClass = 'bg-gray-100 text-gray-500'; 
+        }
+
         const formattedDate = new Date(issue.createdAt).toLocaleDateString();
 
         const cardHTML = `
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 border-t-4 ${topBorderClass} p-5 flex flex-col h-full hover:shadow-md transition-shadow cursor-pointer" onclick="openModal('${issue._id || issue.id}')">
                 
                 <div class="flex justify-between items-start mb-3">
-                    <i class="fa-solid fa-circle-dot ${iconColorClass} mt-1"></i>
-                    <span class="text-[10px] font-bold px-2 py-1 rounded-full bg-gray-100 text-gray-500 uppercase tracking-wide">
-                        ${issue.priority || 'Medium'}
+                    <img src="${iconUrl}" alt="Status" class="w-5 h-5 mt-1 object-contain">
+                    
+                    <span class="text-[10px] font-bold px-3 py-1 rounded-full ${priorityClass} uppercase tracking-wide">
+                        ${priority}
                     </span>
                 </div>
                 
